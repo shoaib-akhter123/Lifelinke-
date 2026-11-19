@@ -465,8 +465,14 @@ if page == "Dashboard":
         st.write({URGENCY[p]: len(bank.queues[p]) for p in (1,2,3)})
     st.subheader("Expiring within 7 days")
     exp = bank.expiring_soon(7)
-    st.dataframe(units_frame(exp), use_container_width=True, hide_index=True) if exp else st.info("No units expiring within 7 days.")
-
+    if exp:
+    st.dataframe(
+        units_frame(exp),
+        use_container_width=True,
+        hide_index=True
+    )
+else:
+    st.info("No units expiring within 7 days.")
 elif page == "Blood Inventory":
     st.subheader("Add blood unit")
     with st.form("add_unit_form"):
